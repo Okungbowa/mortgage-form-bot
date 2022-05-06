@@ -74,12 +74,12 @@ class HomeEqXpathModel:
     dropdown_project_sort = "//div[@class='input-body']/select[@id='TASK']"
     
     // #Bank or Credit Account
-    checkbox_bank_america = "//div[@class='checkbox']/label
-    checkbox_chase = "//div[@class='checkbox']/label
-    checkbox_citi = "//div[@class='checkbox']/label
-    checkbox_usaa = "//div[@class='checkbox']/label
-    checkbox_wells_fargo = "//div[@class='checkbox']/label
-    checkbox_other = "//div[@class='checkbox']/label 
+    checkbox_bank_america = "//div[@class='checkbox']/label"
+    checkbox_chase = "//div[@class='checkbox']/label"
+    checkbox_citi = "//div[@class='checkbox']/label"
+    checkbox_usaa = "//div[@class='checkbox']/label"
+    checkbox_wells_fargo = "//div[@class='checkbox']/label"
+    checkbox_other = "//div[@class='checkbox']/label"
     //
     
     #Project Phase
@@ -100,10 +100,10 @@ class HomeEqXpathModel:
     input_primary_p3 = "//div[@class='input-body']/input[@id='PRI_PHONE-p3']"
     
     #Remaining 1st mortgage slider
-    slider_remain_first_mort = //div[@id ='BAL_ONE_SLIDER']/child::span
+    slider_remain_first_mort = "//div[@id ='BAL_ONE_SLIDER']/child::span"
             
     #1st mortgage interest slider
-    slider_first_mort = //div[@id ='MTG_ONE_INT_SLIDER']/child::span
+    slider_first_mort = "//div[@id ='MTG_ONE_INT_SLIDER']/child::span"
             
     #Second Mortgage
     btn_second_yes = "//div[@id ='mortgage-two-yes-btn-group']/button"
