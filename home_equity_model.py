@@ -73,14 +73,6 @@ class HomeEqXpathModel:
     btn_improv_no = "//div[@id='ha-pro-no-btn-group']/button"
     dropdown_project_sort = "//div[@class='input-body']/select[@id='TASK']"
 
-    # Bank or Credit Account
-    checkbox_bank_america = "//div[@class='checkbox']/label"
-    checkbox_chase = "//div[@class='checkbox']/label"
-    checkbox_citi = "//div[@class='checkbox']/label"
-    checkbox_usaa = "//div[@class='checkbox']/label"
-    checkbox_wells_fargo = "//div[@class='checkbox']/label"
-    checkbox_other = "//div[@class='checkbox']/label"
-
     # Project Phase
     btn_planning = "//button[@id='ha-status-no-btn']"
     btn_ready_to_hire = "//button[@id='ha-status-yes-btn']"
