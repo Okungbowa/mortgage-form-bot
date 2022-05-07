@@ -1,5 +1,5 @@
-from enum import Enum
-
+# create the same model for the other site, the InputModels are identical, you'll need to go through the other
+# govhomeprog site to get all the xpaths for the xpath model
 
 class HomeEqXpathModel:
     # Loan Type
@@ -34,9 +34,14 @@ class HomeEqXpathModel:
     btn_soon = "//button[@id='time_60_days']"
     btn_not_sure = "//button[@id='time_unspecified']"
 
+    # Type Of Property
+    btn_primary_residence = "//div[@id='primary-prop-button-group']/button"
+    btn_vacation_property = "//div[@id='vacation-prop-button-group']/button"
+    btn_investment_property = "//div[@id='investment-prop-button-group']/button"
+
     # est property value
     slider_propt_val = "//div[@id = 'EST_VAL_SLIDER']/child::span"
-    slder_display = "//div[@id = 'EST_VAL_DISPLAY_SMALL']"
+    slider_display = "//div[@id = 'EST_VAL_DISPLAY_SMALL']"
 
     # mortgage balance slider
     slider_mort_bal = "//div[@id = 'BAL_ONE_SLIDER']/child::span"
@@ -45,6 +50,60 @@ class HomeEqXpathModel:
     btn_fixed = "//button[@id='fixed-btn']"
     btn_adjust = "//button[@id='adjust-btn']"
     btn_fix_adjust = "//button[@id='fixed-or-adjust-btn']"
+
+    # Bankruptcy
+    btn_bankruptcy_yes = "//div[@id='fha-yes-btn-group']/button"
+    btn_bankruptcy_no = "//div[@id='fha-no-btn-group']/button"
+
+    # Verify Income
+    btn_verify_yes = "///div[@id='verifiable-yes-btn-group']/button"
+    btn_verify_no = "//div[@id='verifiable-no-btn-group']/button"
+
+    # Late Payment
+    btn_late_none = "//div[@id='late-none-btn-group']/button"
+    btn_late_one = "///div[@id='late-one-btn-group']/button"
+    btn_late_two_or_more = "//div[@id='late-two-or-more-btn-group']/button"
+
+    # Military
+    btn_military_yes = "//div[@id='va-stat-yes-btn-group']/button]"
+    btn_military_no = "//div[@id='va-stat-no-btn-group']/button]"
+
+    # Home Improvement
+    btn_improv_yes = "//div[@id='ha-pro-yes-btn-group']/button"
+    btn_improv_no = "//div[@id='ha-pro-no-btn-group']/button"
+    dropdown_project_sort = "//div[@class='input-body']/select[@id='TASK']"
+
+    # Project Phase
+    btn_planning = "//button[@id='ha-status-no-btn']"
+    btn_ready_to_hire = "//button[@id='ha-status-yes-btn']"
+    dropdown_start_phase = "//div[@class='input-body']/select[@id='TIMELINE']"
+
+    # Current Address
+    input_address = "//div[@class='input-body']/input[@id='ADDRESS']"
+    input_zip = "//div[@class='input-body centered']/input[@id='ZIP']"
+
+    # Personal Information
+    input_first = "//div[@class='input-body']/input[@id='FNAME']"
+    input_last = "//div[@class='input-body']/input[@id='LNAME']"
+    input_email = "//div[@class='input-body error']/input[@id='EMAIL']"
+    input_primary_p1 = "//div[@class='input-body']/input[@id='PRI_PHONE-p1']"
+    input_primary_p2 = "//div[@class='input-body']/input[@id='PRI_PHONE-p2']"
+    input_primary_p3 = "//div[@class='input-body']/input[@id='PRI_PHONE-p3']"
+
+    # Remaining 1st mortgage slider
+    slider_remain_first_mort = "//div[@id ='BAL_ONE_SLIDER']/child::span"
+
+    # 1st mortgage interest slider
+    slider_first_mort = "//div[@id ='MTG_ONE_INT_SLIDER']/child::span"
+
+    # Second Mortgage
+    btn_second_yes = "//div[@id ='mortgage-two-yes-btn-group']/button"
+    btn_second_no = "//div[@id ='mortgage-two-no-btn-group']/button"
+    slider_second_mort_bal = "//div[@id ='BAL_TWO_SLIDER']/child::span"
+    slider_second_int_bal = "//div[@id ='MTG_TWO_INT_SLIDER']/child::span"
+
+    # Additional Cash to borrow
+    slider_add_cash = "//div[@id ='ADD_CASH_SLIDER']/child::span"
 
 
 class HomeEqInputModel:
