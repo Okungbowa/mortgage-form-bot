@@ -56,12 +56,12 @@ class HomeEqXpathModel:
     btn_bankruptcy_no = "//div[@id='fha-no-btn-group']/button"
 
     # Verify Income
-    btn_verify_yes = "///div[@id='verifiable-yes-btn-group']/button"
+    btn_verify_yes = "//div[@id='verifiable-yes-btn-group']/button"
     btn_verify_no = "//div[@id='verifiable-no-btn-group']/button"
 
     # Late Payment
     btn_late_none = "//div[@id='late-none-btn-group']/button"
-    btn_late_one = "///div[@id='late-one-btn-group']/button"
+    btn_late_one = "//div[@id='late-one-btn-group']/button"
     btn_late_two_or_more = "//div[@id='late-two-or-more-btn-group']/button"
 
     # Military
@@ -105,6 +105,9 @@ class HomeEqXpathModel:
     # Additional Cash to borrow
     slider_add_cash = "//div[@id ='ADD_CASH_SLIDER']/child::span"
 
+    # Continue Button
+    btn_continue = "//button[@id='continue_button']"
+
 
 class HomeEqInputModel:
     def __init__(self,
@@ -113,7 +116,7 @@ class HomeEqInputModel:
                  property_value: int,
                  mort_balance: str,
                  mort_intr_rate: str,
-                 loan_terms: str,
+                 loan_type: str,
                  second_mort: bool,
                  addtional_cash: str,
                  bankruptcy: str,
@@ -137,7 +140,7 @@ class HomeEqInputModel:
         self.property_value = property_value
         self.mort_balance = mort_balance
         self.mort_intr_rate = mort_intr_rate
-        self.loan_terms = loan_terms
+        self.loan_type = loan_type
         self.second_mort = second_mort
         self.addtional_cash = addtional_cash
         self.bankruptcy = bankruptcy

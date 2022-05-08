@@ -1,63 +1,90 @@
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait as wait
-from selenium.webdriver.support import expected_conditions as Expect
-from webdriver_manager.chrome import ChromeDriverManager
 from home_equity_model import HomeEqXpathModel as HEQXpath, HomeEqInputModel as HEQInput
+from home_equity_actions import HomeEquityActions as HEQActions
+import time
 
-home_equity_quiz_url = "http://tr4ckme.com/?a=41&c=60&s1="
-
+# initialise the driver
 driver = webdriver.Chrome('/Users/joshuaokungbowa/Downloads/chromedriver')
 
-timeout_xs = 0.5
-timeout_s = 1
-timeout_m = 3
-timeout_l = 5
-timeout_xl = 10
+data = HEQInput(
+    house_type="SINGLE FAMILY",
+    credit_score="GOOD",
+    property_value=0,
+    mort_balance="",
+    mort_intr_rate="",
+    loan_type="FIXED OR ADJUSTABLE",
+    second_mort=False,
+    addtional_cash="",
+    bankruptcy=False,
+    late_payments="ONE",
+    military_spouse="",
+    home_improvements=True,
+    address="4024 Chardonnay Drive",
+    zip_code="90210",
+    first_name="John",
+    last_name="Doe",
+    email_address="john.doe@email.com",
+    phone_area_code="646",
+    phone_prefix="960",
+    phone_line_num="3305",
+    scd_mort_bal="",
+    scd_mort_intr="",
+    verify_income=True
+)
 
 
 def main():
-    driver.get(home_equity_quiz_url)
+    # Initialise Home Equity Quiz Actions
+    action = HEQActions(driver)
 
-    data = HEQInput(
-        "",
-        "",
-        0,
-        "",
-        "",
-        "",
-        True,
-        "",
-        "",
-        "",
-        "",
-        "",
-        True,
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-    )
+    # Launch HEQ
+    action.launch(driver, "http://tr4ckme.com/?a=41&c=60&s1=")
+    time.sleep(5)
 
-    select_loan_type("refinance")
+    # Select Refinance
+    action.select_refinance()
 
+    # select house type
+    action.select_house_type(data.house_type)
 
-def select_loan_type(loan_type: str):
-    try:
-        if loan_type == "refinance":
-            btn_refinance = wait(driver, timeout_m).until(Expect.element_to_be_clickable((By.XPATH, HEQXpath.btn_refi)))
-        else:
-            btn_refinance = wait(driver, timeout_m).until(Expect.element_to_be_clickable((By.XPATH, HEQXpath.btn_refi)))
-        btn_refinance.click()
-    except Exception as e:
-        raise e
+    # select credit score
+    action.select_estimated_credit(data.credit_score)
+
+    # slider selection - REVISIT
+    action.click_continue()
+    time.sleep(2)
+
+    # slider selection - REVISIT
+    action.click_continue()
+    time.sleep(2)
+
+    # slider selection - REVISIT
+    action.click_continue()
+    time.sleep(2)
+
+    # select loan type
+    action.select_loan_type(data.loan_type)
+
+    # select second mortgage
+    action.answer_second_mort(data.second_mort)
+
+    if data.second_mort:
+        # slider selection
+        action.click_continue()
+        time.sleep(2)
+
+    # slider selection - REVISIT
+    action.click_continue()
+    time.sleep(2)
+
+    # select bankruptcy
+    action.answer_bankruptcy(data.bankruptcy)
+
+    # Answer verify income question
+    action.answer_verify_income(data.verify_income)
+
+    # answer late payments question
+    action.select_late_payment(data.late_payments)
 
 
 if __name__ == '__main__':
