@@ -56,12 +56,12 @@ class HomeEqXpathModel:
     btn_bankruptcy_no = "//div[@id='fha-no-btn-group']/button"
 
     # Verify Income
-    btn_verify_yes = "///div[@id='verifiable-yes-btn-group']/button"
+    btn_verify_yes = "//div[@id='verifiable-yes-btn-group']/button"
     btn_verify_no = "//div[@id='verifiable-no-btn-group']/button"
 
     # Late Payment
     btn_late_none = "//div[@id='late-none-btn-group']/button"
-    btn_late_one = "///div[@id='late-one-btn-group']/button"
+    btn_late_one = "//div[@id='late-one-btn-group']/button"
     btn_late_two_or_more = "//div[@id='late-two-or-more-btn-group']/button"
 
     # Military
