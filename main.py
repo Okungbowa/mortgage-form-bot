@@ -17,7 +17,7 @@ data = HEQInput(
     addtional_cash="",
     bankruptcy=False,
     late_payments="ONE",
-    military_spouse="",
+    military_spouse=True,
     home_improvements=True,
     address="4024 Chardonnay Drive",
     zip_code="90210",
@@ -85,6 +85,23 @@ def main():
 
     # answer late payments question
     action.select_late_payment(data.late_payments)
+
+    # Answer Military wife question
+    action.answer_military_spouse(data.military_spouse)
+
+    action.answer_home_improve(False)
+
+    action.enter_address(data.address, data.zip_code)
+    action.click_continue()
+
+    action.enter_details(data.first_name,
+                         data.last_name,
+                         data.email_address,
+                         data.phone_area_code,
+                         data.phone_prefix,
+                         data.phone_line_num
+                         )
+    action.click_continue()
 
 
 if __name__ == '__main__':

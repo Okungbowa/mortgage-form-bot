@@ -65,8 +65,8 @@ class HomeEqXpathModel:
     btn_late_two_or_more = "//div[@id='late-two-or-more-btn-group']/button"
 
     # Military
-    btn_military_yes = "//div[@id='va-stat-yes-btn-group']/button]"
-    btn_military_no = "//div[@id='va-stat-no-btn-group']/button]"
+    btn_military_yes = "//div[@id='va-stat-yes-btn-group']/button"
+    btn_military_no = "//div[@id='va-stat-no-btn-group']/button"
 
     # Home Improvement
     btn_improv_yes = "//div[@id='ha-pro-yes-btn-group']/button"
@@ -85,7 +85,7 @@ class HomeEqXpathModel:
     # Personal Information
     input_first = "//div[@class='input-body']/input[@id='FNAME']"
     input_last = "//div[@class='input-body']/input[@id='LNAME']"
-    input_email = "//div[@class='input-body error']/input[@id='EMAIL']"
+    input_email = "//div[@class='input-body']/input[@id='EMAIL']"
     input_primary_p1 = "//div[@class='input-body']/input[@id='PRI_PHONE-p1']"
     input_primary_p2 = "//div[@class='input-body']/input[@id='PRI_PHONE-p2']"
     input_primary_p3 = "//div[@class='input-body']/input[@id='PRI_PHONE-p3']"
