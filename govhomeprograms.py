@@ -131,7 +131,30 @@ class GovHomeProgInputModel:
                mort_bal: str,
                monthly_payment: str,
                mort_lender: str,
-               rate_type: 
+               rate_type: ?
+               credit_debt: str,
+               additional_cash: str,
+               age: str,
+               employment_status: str,
+               cash_out: str,
+               bankruptcy: ?,
+               fha_loan: ?,
+               pmi: ?,
+               mort_payment: str,
+               property_address: ?,
+               email_address: str,
+               current_occupation: str,
+               military_service: ?,
+               va_loan: ?,
+               first_name: str,
+               last_name: str,
+               prim_phone_area_code: str,
+               prim_phone_prefix: str,
+               prim_phone_suffix: str,
+               sec_phone_area_code: str,
+               sec_phone_prefix: str,
+               sec_phone_suffix: str
+              ): 
                
                
                
