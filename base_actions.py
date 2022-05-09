@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait as Wait
 from selenium.webdriver.support import expected_conditions as Expectation
+from selenium.webdriver import ActionChains
 
 
 class BaseActions:
@@ -18,14 +19,19 @@ class BaseActions:
     def read_text(driver, timeout, xpath) -> str:
         element = Wait(driver, timeout).until(
             Expectation.visibility_of_element_located((By.XPATH, xpath)))
-        text = element.getText()
+        text = element.text
         return text
 
     @staticmethod
     def move_slider_bar(driver, timeout, bar_xpath: str, direction: str, pixels: int):
+        action = ActionChains(driver)
         bar_element = Wait(driver, timeout).until(
             Expectation.element_to_be_clickable((By.XPATH, bar_xpath)))
-        # if direction.upper()
+        if direction.upper() == "RIGHT":
+            action.drag_and_drop_by_offset(bar_element, abs(pixels), 0)
+        elif direction.upper() == "LEFT":
+            action.drag_and_drop_by_offset(bar_element, -abs(pixels), 0)
+        action.perform()
 
     @staticmethod
     def answer_yes_no(driver, timeout, yes: bool, yes_btn_xpath: str, no_btn_xpath: str):

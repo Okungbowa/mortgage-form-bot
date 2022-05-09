@@ -41,10 +41,11 @@ class HomeEqXpathModel:
 
     # est property value
     slider_propt_val = "//div[@id = 'EST_VAL_SLIDER']/child::span"
-    slider_display = "//div[@id = 'EST_VAL_DISPLAY_SMALL']"
+    label_propt_val = "//div[@id = 'EST_VAL_DISPLAY_SMALL']"
 
     # mortgage balance slider
     slider_mort_bal = "//div[@id = 'BAL_ONE_SLIDER']/child::span"
+    label_mort_bal = "//div[@id='BAL_ONE_DISPLAY_SMALL']"
 
     # Fixed Score
     btn_fixed = "//button[@id='fixed-btn']"
@@ -94,7 +95,8 @@ class HomeEqXpathModel:
     slider_remain_first_mort = "//div[@id ='BAL_ONE_SLIDER']/child::span"
 
     # 1st mortgage interest slider
-    slider_first_mort = "//div[@id ='MTG_ONE_INT_SLIDER']/child::span"
+    slider_mort_intr = "//div[@id ='MTG_ONE_INT_SLIDER']/child::span"
+    label_mort_bal = "//div[@id='MTG_ONE_INT_DISPLAY_SMALL']"
 
     # Second Mortgage
     btn_second_yes = "//div[@id ='mortgage-two-yes-btn-group']/button"

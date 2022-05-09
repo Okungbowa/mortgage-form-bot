@@ -9,9 +9,9 @@ driver = webdriver.Chrome('/Users/joshuaokungbowa/Downloads/chromedriver')
 data = HEQInput(
     house_type="SINGLE FAMILY",
     credit_score="GOOD",
-    property_value=0,
-    mort_balance="",
-    mort_intr_rate="",
+    property_value="200000",
+    mort_balance="150000",
+    mort_intr_rate="5",
     loan_type="FIXED OR ADJUSTABLE",
     second_mort=False,
     addtional_cash="",
@@ -51,14 +51,17 @@ def main():
     action.select_estimated_credit(data.credit_score)
 
     # slider selection - REVISIT
+    action.adjust_prop_val_slider(data.property_value)
     action.click_continue()
     time.sleep(2)
 
     # slider selection - REVISIT
+    action.adjust_mort_bal_slider(data.mort_balance)
     action.click_continue()
     time.sleep(2)
 
     # slider selection - REVISIT
+    action.adjust_mort_intr_slider(data.mort_intr_rate)
     action.click_continue()
     time.sleep(2)
 

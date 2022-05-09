@@ -66,7 +66,8 @@ class GovHomeProgXpathModel:
     # Pay for PMI
     input_pmi_yes = "//div[@class='radio-button__container']/input[@id ='YES' and @name = 'privateMortgageInsurance']"
     input_pmi_no = "//div[@class='radio-button__container']/input[@id ='NO' and @name = 'privateMortgageInsurance']"
-    input_pmi_idk = "//div[@class='radio-button__container']/input[@id ='I_DO_NOT_KNOW' and @name = 'privateMortgageInsurance']"
+    input_pmi_idk = "//div[@class='radio-button__container']/input[@id ='I_DO_NOT_KNOW' and @name = " \
+                    "'privateMortgageInsurance'] "
 
     # Number Mortgage Payment
     dropdown_mort_pay_number = "//select[@id='isMortgageLate']"

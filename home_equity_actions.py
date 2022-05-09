@@ -120,3 +120,59 @@ class HomeEquityActions(BaseActions, HEQXpath):
             self.enter_text(self.driver, self.timeout_m, self.input_primary_p3, num_3)
         except Exception as e:
             raise e
+
+    def adjust_prop_val_slider(self, value: int):
+        try:
+            self.adjust_money_slider(value, self.slider_propt_val, self.label_propt_val)
+        except Exception as e:
+            raise e
+
+    def adjust_mort_bal_slider(self, value: int):
+        try:
+            self.adjust_money_slider(value, self.slider_mort_bal, self.label_mort_bal)
+        except Exception as e:
+            raise e
+
+    def adjust_mort_intr_slider(self, value: int):
+        try:
+            self.adjust_percentage_slider(value, self.slider_mort_intr)
+        except Exception as e:
+            raise e
+
+    def adjust_money_slider(self, value, bar_xpath, display_xpath):
+        max_i = 500
+        i = 0
+        while i < max_i:
+            display_val = self.read_text(self.driver, self.timeout_m, display_xpath)
+            display_num = display_val.replace('$', '').replace(',', '').replace(' ', '').split('-')
+            if int(display_num[0]) <= int(value) <= int(display_num[1]):
+                break
+            elif display_val.__contains__('$50,001 - $55,000') and int(value) <= 55000:
+                break
+            elif display_val.__contains__('Over $2,000,000') and int(value) >= 2000000:
+                break
+            elif int(value) < int(display_num[0]):
+                self.move_slider_bar(self.driver, self.timeout_m, bar_xpath, "LEFT", 8)
+            elif int(value) > int(display_num[1]):
+                self.move_slider_bar(self.driver, self.timeout_m, bar_xpath, "RIGHT", 8)
+            i += 1
+
+    def adjust_percentage_slider(self, value, xpath):
+        max_i = 500
+        i = 0
+        while i < max_i:
+            display_val = self.read_text(self.driver, self.timeout_m, self.label_propt_val)
+            display_num = float(display_val.replace('%', '').replace(' ', ''))
+            if display_val == int(value):
+                break
+            elif display_val.__contains__('3% or lower') and float(value) <= 3:
+                break
+            elif display_val.__contains__('Over 10%') and float(value) >= 10:
+                break
+            elif float(value).replace(' ', '') < display_num:
+                self.move_slider_bar(self.driver, self.timeout_m, xpath, "LEFT", 8)
+            elif float(value).replace(' ', '') > display_num:
+                self.move_slider_bar(self.driver, self.timeout_m, xpath, "RIGHT", 8)
+            i += 1
+
+
