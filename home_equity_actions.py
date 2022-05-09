@@ -112,9 +112,9 @@ class HomeEquityActions(BaseActions, HEQXpath):
 
     def enter_details(self, firstname: str, lastname: str, email: str, num_1: str, num_2: str, num_3: str):
         try:
-            self.enter_text(self.driver, self.timeout_m, self.input_address, firstname)
-            self.enter_text(self.driver, self.timeout_m, self.input_first, lastname)
-            self.enter_text(self.driver, self.timeout_m, self.input_last, email)
+            self.enter_text(self.driver, self.timeout_m, self.input_first, firstname)
+            self.enter_text(self.driver, self.timeout_m, self.input_last, lastname)
+            self.enter_text(self.driver, self.timeout_m, self.input_email, email)
             self.enter_text(self.driver, self.timeout_m, self.input_primary_p1, num_1)
             self.enter_text(self.driver, self.timeout_m, self.input_primary_p2, num_2)
             self.enter_text(self.driver, self.timeout_m, self.input_primary_p3, num_3)
