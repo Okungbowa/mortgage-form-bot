@@ -197,3 +197,5 @@ class GovHomeProgInputModel:
         self.sec_phone_area_code = sec_phone_area_code
         self.sec_phone_prefix = sec_phone_prefix
         self.sec_phone_suffix = sec_phone_suffix
+        self.property_street = property_street
+        self.property_city = property_city
