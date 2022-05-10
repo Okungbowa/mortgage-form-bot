@@ -103,9 +103,12 @@ class HomeEqXpathModel:
     btn_second_no = "//div[@id ='mortgage-two-no-btn-group']/button"
     slider_second_mort_bal = "//div[@id ='BAL_TWO_SLIDER']/child::span"
     slider_second_int_bal = "//div[@id ='MTG_TWO_INT_SLIDER']/child::span"
+    label_second_mort_bal = "//div[@id ='BAL_TWO_DISPLAY_SMALL']"
+    label_second_int_bal = "//div[@id ='MTG_TWO_INT_DISPLAY_SMALL']"
 
     # Additional Cash to borrow
     slider_add_cash = "//div[@id ='ADD_CASH_SLIDER']/child::span"
+    label_add_cash = "//div[@id = 'ADD_CASH_DISPLAY_SMALL']"
 
     # Continue Button
     btn_continue = "//button[@id='continue_button']"

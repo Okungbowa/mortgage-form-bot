@@ -93,7 +93,8 @@ class HomeEquityActions(BaseActions, HEQXpath):
 
     def answer_military_spouse(self, military_spouse: bool):
         try:
-            self.answer_yes_no(self.driver, self.timeout_m, military_spouse, self.btn_military_yes, self.btn_military_no)
+            self.answer_yes_no(self.driver, self.timeout_m, military_spouse, self.btn_military_yes,
+                               self.btn_military_no)
         except Exception as e:
             raise e
 
@@ -123,33 +124,62 @@ class HomeEquityActions(BaseActions, HEQXpath):
 
     def adjust_prop_val_slider(self, value: int):
         try:
-            self.adjust_money_slider(value, self.slider_propt_val, self.label_propt_val, 8)
+            self.adjust_money_slider(value, self.slider_propt_val, self.label_propt_val, 8, '$50,001 - $55,000', "")
         except Exception as e:
             raise e
 
     def adjust_mort_bal_slider(self, value: int):
         try:
-            self.adjust_money_slider(value, self.slider_mort_bal, self.label_mort_bal, 16)
+            self.adjust_money_slider(value, self.slider_mort_bal, self.label_mort_bal, 16, '$50,001 - $55,000', "")
         except Exception as e:
             raise e
 
     def adjust_mort_intr_slider(self, value: int):
         try:
-            self.adjust_percentage_slider(value, self.slider_mort_intr, self.label_mort_intr, 15)
+            self.adjust_percentage_slider(value, self.slider_mort_intr, self.label_mort_intr, 15, "3% or lower",
+                                          "Over 10%")
         except Exception as e:
             raise e
 
-    def adjust_money_slider(self, value, bar_xpath, display_xpath, pixels):
+    def adjust_additional_cash_slider(self, value: int):
+        try:
+            self.adjust_money_slider(value, self.slider_add_cash, self.label_add_cash, 90, '$0',
+                                     '$45,001 - $50,000')
+        except Exception as e:
+            raise e
+
+    def adjust_scd_mort_bal(self, value: int):
+        try:
+            self.adjust_money_slider(value, self.slider_second_mort_bal, self.label_second_mort_bal, 90, 'Paid Off',
+                                     '$45,001 - $50,000')
+        except Exception as e:
+            raise e
+
+    def adjust_scd_mort_intr(self, value: int):
+        try:
+            self.adjust_percentage_slider(value, self.slider_second_int_bal, self.label_second_int_bal, 15,
+                                          "3% or lower", "Over 10%")
+        except Exception as e:
+            raise e
+
+    def adjust_money_slider(self, value, bar_xpath, display_xpath, pixels, start_text, end_text):
         max_i = 500
         i = 0
+        first_loop = True
         while i < max_i:
             display_val = self.read_text(self.driver, self.timeout_m, display_xpath)
             display_num = display_val.replace('$', '').replace(',', '').replace(' ', '').split('-')
-            if int(display_num[0]) <= int(value) <= int(display_num[1]):
+            if first_loop and display_val == start_text:
+                self.move_slider_bar(self.driver, self.timeout_m, bar_xpath, "RIGHT", pixels)
+                first_loop = False
+            elif first_loop and display_val == end_text:
+                self.move_slider_bar(self.driver, self.timeout_m, bar_xpath, "LEFT", pixels)
+                first_loop = False
+            elif int(display_num[0]) <= int(value) <= int(display_num[1]):
                 break
-            elif display_val.__contains__('$50,001 - $55,000') and int(value) <= 55000:
+            elif display_val.__contains__(start_text) and int(value) <= 55000:
                 break
-            elif display_val.__contains__('Over $2,000,000') and int(value) >= 2000000:
+            elif display_val.__contains__(end_text) and int(value) >= 2000000:
                 break
             elif int(value) < int(display_num[0]):
                 self.move_slider_bar(self.driver, self.timeout_m, bar_xpath, "LEFT", pixels)
@@ -157,22 +187,27 @@ class HomeEquityActions(BaseActions, HEQXpath):
                 self.move_slider_bar(self.driver, self.timeout_m, bar_xpath, "RIGHT", pixels)
             i += 1
 
-    def adjust_percentage_slider(self, value, bar_xpath, label_xpath, pixels):
+    def adjust_percentage_slider(self, value, bar_xpath, label_xpath, pixels, start_text, end_text):
         max_i = 100
         i = 0
+        first_loop = True
         while i < max_i:
             display_val = self.read_text(self.driver, self.timeout_m, label_xpath)
             display_num = float(display_val.replace('%', '').replace(' ', ''))
-            if display_val == int(value):
+            if first_loop and display_val == start_text:
+                self.move_slider_bar(self.driver, self.timeout_m, bar_xpath, "RIGHT", pixels)
+                first_loop = False
+            elif first_loop and display_val == end_text:
+                self.move_slider_bar(self.driver, self.timeout_m, bar_xpath, "LEFT", pixels)
+                first_loop = False
+            elif display_val == int(value):
                 break
-            elif display_val.__contains__('3% or lower') and float(value) <= 3:
+            elif display_val.__contains__(start_text) and float(value) <= 3:
                 break
-            elif display_val.__contains__('Over 10%') and float(value) >= 10:
+            elif display_val.__contains__(end_text) and float(value) >= 10:
                 break
             elif float(value.replace(' ', '')) < display_num:
                 self.move_slider_bar(self.driver, self.timeout_m, bar_xpath, "LEFT", pixels)
             elif float(value.replace(' ', '')) > display_num:
                 self.move_slider_bar(self.driver, self.timeout_m, bar_xpath, "RIGHT", pixels)
             i += 1
-
-
