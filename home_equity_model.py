@@ -96,7 +96,7 @@ class HomeEqXpathModel:
 
     # 1st mortgage interest slider
     slider_mort_intr = "//div[@id ='MTG_ONE_INT_SLIDER']/child::span"
-    label_mort_bal = "//div[@id='MTG_ONE_INT_DISPLAY_SMALL']"
+    label_mort_intr = "//div[@id='MTG_ONE_INT_DISPLAY_SMALL']"
 
     # Second Mortgage
     btn_second_yes = "//div[@id ='mortgage-two-yes-btn-group']/button"

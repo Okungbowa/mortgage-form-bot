@@ -123,23 +123,23 @@ class HomeEquityActions(BaseActions, HEQXpath):
 
     def adjust_prop_val_slider(self, value: int):
         try:
-            self.adjust_money_slider(value, self.slider_propt_val, self.label_propt_val)
+            self.adjust_money_slider(value, self.slider_propt_val, self.label_propt_val, 8)
         except Exception as e:
             raise e
 
     def adjust_mort_bal_slider(self, value: int):
         try:
-            self.adjust_money_slider(value, self.slider_mort_bal, self.label_mort_bal)
+            self.adjust_money_slider(value, self.slider_mort_bal, self.label_mort_bal, 16)
         except Exception as e:
             raise e
 
     def adjust_mort_intr_slider(self, value: int):
         try:
-            self.adjust_percentage_slider(value, self.slider_mort_intr)
+            self.adjust_percentage_slider(value, self.slider_mort_intr, self.label_mort_intr, 15)
         except Exception as e:
             raise e
 
-    def adjust_money_slider(self, value, bar_xpath, display_xpath):
+    def adjust_money_slider(self, value, bar_xpath, display_xpath, pixels):
         max_i = 500
         i = 0
         while i < max_i:
@@ -152,16 +152,16 @@ class HomeEquityActions(BaseActions, HEQXpath):
             elif display_val.__contains__('Over $2,000,000') and int(value) >= 2000000:
                 break
             elif int(value) < int(display_num[0]):
-                self.move_slider_bar(self.driver, self.timeout_m, bar_xpath, "LEFT", 8)
+                self.move_slider_bar(self.driver, self.timeout_m, bar_xpath, "LEFT", pixels)
             elif int(value) > int(display_num[1]):
-                self.move_slider_bar(self.driver, self.timeout_m, bar_xpath, "RIGHT", 8)
+                self.move_slider_bar(self.driver, self.timeout_m, bar_xpath, "RIGHT", pixels)
             i += 1
 
-    def adjust_percentage_slider(self, value, xpath):
-        max_i = 500
+    def adjust_percentage_slider(self, value, bar_xpath, label_xpath, pixels):
+        max_i = 100
         i = 0
         while i < max_i:
-            display_val = self.read_text(self.driver, self.timeout_m, self.label_propt_val)
+            display_val = self.read_text(self.driver, self.timeout_m, label_xpath)
             display_num = float(display_val.replace('%', '').replace(' ', ''))
             if display_val == int(value):
                 break
@@ -169,10 +169,10 @@ class HomeEquityActions(BaseActions, HEQXpath):
                 break
             elif display_val.__contains__('Over 10%') and float(value) >= 10:
                 break
-            elif float(value).replace(' ', '') < display_num:
-                self.move_slider_bar(self.driver, self.timeout_m, xpath, "LEFT", 8)
-            elif float(value).replace(' ', '') > display_num:
-                self.move_slider_bar(self.driver, self.timeout_m, xpath, "RIGHT", 8)
+            elif float(value.replace(' ', '')) < display_num:
+                self.move_slider_bar(self.driver, self.timeout_m, bar_xpath, "LEFT", pixels)
+            elif float(value.replace(' ', '')) > display_num:
+                self.move_slider_bar(self.driver, self.timeout_m, bar_xpath, "RIGHT", pixels)
             i += 1
 
 

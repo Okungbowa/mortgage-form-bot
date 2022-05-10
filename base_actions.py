@@ -32,6 +32,7 @@ class BaseActions:
         elif direction.upper() == "LEFT":
             action.drag_and_drop_by_offset(bar_element, -abs(pixels), 0)
         action.perform()
+        action.reset_actions()
 
     @staticmethod
     def answer_yes_no(driver, timeout, yes: bool, yes_btn_xpath: str, no_btn_xpath: str):

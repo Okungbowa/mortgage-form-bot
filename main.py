@@ -50,17 +50,17 @@ def main():
     # select credit score
     action.select_estimated_credit(data.credit_score)
 
-    # slider selection - REVISIT
+    # Set estimated property value
     action.adjust_prop_val_slider(data.property_value)
     action.click_continue()
     time.sleep(2)
 
-    # slider selection - REVISIT
+    # Set mortgage balance for first house
     action.adjust_mort_bal_slider(data.mort_balance)
     action.click_continue()
     time.sleep(2)
 
-    # slider selection - REVISIT
+    # Set mortgage interest on first house
     action.adjust_mort_intr_slider(data.mort_intr_rate)
     action.click_continue()
     time.sleep(2)
