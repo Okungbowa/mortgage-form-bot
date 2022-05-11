@@ -1,7 +1,5 @@
 from flask import Flask, request, jsonify
-
 import time
-
 import redis
 from rq import Queue
 from .myworkers import *
@@ -9,7 +7,6 @@ from .myworkers import *
 app= Flask(__name__)
 
 q = Queue(connection=redis.Redis(),default_timeout=3600)
-
 
 @app.route('/refinance-bot',methods=["GET","POST"])
 def fillRefinanceForm():
