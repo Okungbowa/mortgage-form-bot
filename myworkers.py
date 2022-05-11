@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0, '<PATH_TO_PROJECT>')
 from selenium import webdriver
 from home_equity_model import HomeEqXpathModel as HEQXpath, HomeEqInputModel as HEQInput
 from home_equity_actions import HomeEquityActions as HEQActions
