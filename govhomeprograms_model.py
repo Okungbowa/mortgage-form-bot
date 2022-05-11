@@ -22,7 +22,7 @@ class GovHomeProgXpathModel:
     label_credit_below_avrg = "//label[@id = 'credit_rating_below_average']"
     label_credit_poor = "//label[@id = 'credit_rating_poor']"
 
-    #house type
+    # house type
     label_house_sgl_family = "//label[@id = 'property_type_Single Family']"
     label_house_townhouse = "//label[@id = 'property_type_Townhouse']"
     label_house_trailer = "//label[@id = 'property_type_Mobile Home']"
@@ -30,20 +30,56 @@ class GovHomeProgXpathModel:
     label_house_regular = "//label[@id = 'property_type_SingleFamily']"
 
     # est_property_val
-    slider_prop_val = "//h1[text() = 'What is the estimated value of your home?']/following-sibling::div//div[@id='slider-thumb']"
-    display_prop_val = "//h1[text() = 'What is the estimated value of your home?']/following-sibling::div//p[@data-testid = 'slider-number']"
+    slider_prop_val = "//h1[text() = 'What is the estimated value of your home?']/following-sibling::div//div[" \
+                      "@id='slider-thumb'] "
+    display_prop_val = "//h1[text() = 'What is the estimated value of your home?']/following-sibling::div//p[" \
+                       "@data-testid = 'slider-number'] "
 
     # est_mort_bal
-    slider_mort_bal = "//h1[text() = 'What is the remaining balance of your mortgage?']/following-sibling::div//div[@id='slider-thumb']"
-    display_mort_bal = "//h1[text() = 'What is the remaining balance of your mortgage?']/following-sibling::div//p[@data-testid = 'slider-number']"
+    slider_mort_bal = "//h1[text() = 'What is the remaining balance of your mortgage?']/following-sibling::div//div[" \
+                      "@id='slider-thumb'] "
+    display_mort_bal = "//h1[text() = 'What is the remaining balance of your mortgage?']/following-sibling::div//p[" \
+                       "@data-testid = 'slider-number'] "
 
+    # additional cash
+    btn_add_cash_yes = "//label[@id = 'additional_cash_needed_5000']"
+    btn_add_cash_no = "//label[@id = 'additional_cash_needed_0']"
 
+    # house type
+    label_solar = "//label[@id = 'RefiUsage_Solar Panel Installation']"
+    label_window = "//label[@id = 'RefiUsage_Window Service']"
+    label_roofing = "//label[@id = 'RefiUsage_Roofing Service']"
+    label_debt_cons = "//label[@id = 'RefiUsage_Debt Consolidation/Relief']"
+    label_house_regular = "//label[@id = 'RefiUsage_Other']"
+    label_pref_not_say = "//label[@id = 'RefiUsage_Prefer Not to Say']"
 
+    # est_mort_bal
+    slider_interest_rate = "//h1[text() = 'What is your current interest rate?']/following-sibling::div//div[" \
+                           "@id='slider-thumb']"
+    display_intr_rate = "//h1[text() = 'What is your current interest rate?']/following-sibling::div//p[" \
+                        "@data-testid = 'slider-number'] "
 
+    # lona type
+    label_FHA = "//label[@id = 'current_loan_type_FHA']"
+    label_VA = "//label[@id = 'current_loan_type_VA']"
+    label_other_loan = "//label[@id = 'current_loan_type_Other']"
 
+    # Employment Status
+    label_employed = "//label[@id = 'employer_employed']"
+    label_self_employed = "//label[@id = 'employer_selfemployed']"
+    label_unemployed = "//label[@id = 'employer_unemployed']"
+    label_retired = "//label[@id = 'employer_retired']"
 
+    # Street Address
+    input_address = "//input[@id = 'address']"
 
+    # Phone
+    input_first_name = "//input[@name = 'first_name']"
+    input_last_name = "//input[@name = 'last_name']"
+    input_email = "//input[@name = 'email']"
+    input_phone = "//input[@name = 'phone_primary']"
 
+    btn_submit = "//div[@id = 'submitButtonText'"
 
 #
 #     # Home Type
