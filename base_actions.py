@@ -2,12 +2,19 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait as Wait
 from selenium.webdriver.support import expected_conditions as Expectation
 from selenium.webdriver import ActionChains
+from selenium.webdriver.support.ui import Select
 
 
 class BaseActions:
     @staticmethod
     def launch(driver, url: str):
         driver.get(url)
+
+    @staticmethod
+    def wait(driver, timeout, xpath):
+        element = Wait(driver, timeout).until(
+            Expectation.element_to_be_clickable((By.XPATH, xpath)))
+        return element
 
     @staticmethod
     def click_button(driver, timeout, xpath):
@@ -52,3 +59,14 @@ class BaseActions:
         element = Wait(driver, timeout).until(
             Expectation.visibility_of_element_located((By.XPATH, xpath)))
         element.send_keys(text)
+
+    @staticmethod
+    def choose_dropdown_option(self, driver, timeout, drop_xpath, value):
+        try:
+            dropdown = self.wait(driver, timeout, drop_xpath)
+            select = Select(dropdown)
+
+            # select by visible text
+            select.select_by_visible_text(value)
+        except Exception as e:
+            raise e

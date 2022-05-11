@@ -12,8 +12,8 @@ class GovHomeProgXpathModel:
     # next button
     btn_next = "//button[@id = 'next-button']"
 
-    label_yes_vet_house = "//label[text() = 'Yes - we're a Veteran household']"
-    label_no_vet_house = "//label[text() = 'No - we're not a Veteran household']"
+    label_yes_vet_house = "//label[@id = 'opt_served_military_1']"
+    label_no_vet_house = "//label[@id = 'opt_served_military_0']"
 
     # Credit Rating
     label_credit_excellent = "//label[@id = 'credit_rating_excellent']"
@@ -59,6 +59,8 @@ class GovHomeProgXpathModel:
     display_intr_rate = "//h1[text() = 'What is your current interest rate?']/following-sibling::div//p[" \
                         "@data-testid = 'slider-number'] "
 
+    dropdown_age = "//select[@id = 'dropdown-age']"
+
     # lona type
     label_FHA = "//label[@id = 'current_loan_type_FHA']"
     label_VA = "//label[@id = 'current_loan_type_VA']"
@@ -80,6 +82,8 @@ class GovHomeProgXpathModel:
     input_phone = "//input[@name = 'phone_primary']"
 
     btn_submit = "//div[@id = 'submitButtonText'"
+
+    dropdown_lender = "//select[@id = 'dropdown-current_lender']"
 
 #
 #     # Home Type

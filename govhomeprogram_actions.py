@@ -19,152 +19,144 @@ class GovhomeActions(BaseActions, GovXpath):
 
     def select_own_home(self):
         try:
-            self.click_button(self.driver, self.timeout_xl, self.btn_block_push_not)
+            self.click_button(self.driver, self.timeout_xl, self.label_own_home)
+        except Exception as e:
+            raise e
+
+    def enter_zipcode(self, zipcode: str):
+        try:
+            self.enter_text(self.driver, self.timeout_m, self.input_zip, zipcode)
         except Exception as e:
             raise e
 
     def select_house_type(self, house_type: str):
         try:
-            if house_type.upper() == "SINGLE FAMILY":
-                self.click_button(self.driver, self.timeout_m, self.btn_sgl_property)
-            elif house_type.upper() == "MULTI FAMILY":
-                self.click_button(self.driver, self.timeout_m, self.btn_multi_property)
-            elif house_type.upper() == "TOWNHOUSE":
-                self.click_button(self.driver, self.timeout_m, self.btn_town_property)
-            elif house_type.upper() == "CONDOMINIUM":
-                self.click_button(self.driver, self.timeout_m, self.btn_condo_property)
+            if house_type.upper() == "SINGLE_FAMILY":
+                self.click_button(self.driver, self.timeout_m, self.label_house_sgl_family)
+            elif house_type.upper() == "MULTI_FAMILY":
+                self.click_button(self.driver, self.timeout_m, self.label_house_townhouse)
+            elif house_type.upper() == "MOBILE":
+                self.click_button(self.driver, self.timeout_m, self.label_house_trailer)
+            elif house_type.upper() == "CONDO":
+                self.click_button(self.driver, self.timeout_m, self.label_house_townhouse)
+        except Exception as e:
+            raise e
+
+    def select_employment_status(self, employment_status: str):
+        try:
+            if employment_status.upper() == "EMPLOYED":
+                self.click_button(self.driver, self.timeout_m, self.label_employed)
+            elif employment_status.upper() == "SELF-EMPLOYED":
+                self.click_button(self.driver, self.timeout_m, self.label_self_employed)
+            elif employment_status.upper() == "UNEMPLOYED":
+                self.click_button(self.driver, self.timeout_m, self.label_unemployed)
+            elif employment_status.upper() == "RETIRED":
+                self.click_button(self.driver, self.timeout_m, self.label_retired)
         except Exception as e:
             raise e
 
     def select_estimated_credit(self, est_cred: str):
         try:
             if est_cred.upper() == "EXCELLENT":
-                self.click_button(self.driver, self.timeout_m, self.btn_excellent_score)
+                self.click_button(self.driver, self.timeout_m, self.label_credit_excellent)
             elif est_cred.upper() == "GOOD":
-                self.click_button(self.driver, self.timeout_m, self.btn_good_score)
+                self.click_button(self.driver, self.timeout_m, self.label_credit_good)
             elif est_cred.upper() == "AVERAGE":
-                self.click_button(self.driver, self.timeout_m, self.btn_town_property)
+                self.click_button(self.driver, self.timeout_m, self.label_credit_average)
             elif est_cred.upper() == "FAIR":
-                self.click_button(self.driver, self.timeout_m, self.btn_condo_property)
+                self.click_button(self.driver, self.timeout_m, self.label_credit_below_avrg)
             elif est_cred.upper() == "POOR":
-                self.click_button(self.driver, self.timeout_m, self.btn_condo_property)
+                self.click_button(self.driver, self.timeout_m, self.label_credit_poor)
         except Exception as e:
             raise e
 
-    def click_continue(self):
+    def click_next(self):
         try:
-            self.click_button(self.driver, self.timeout_m, self.btn_continue)
+            self.click_button(self.driver, self.timeout_m, self.btn_next)
+        except Exception as e:
+            raise e
+
+    def click_see_results(self):
+        try:
+            self.click_button(self.driver, self.timeout_m, self.btn_submit)
         except Exception as e:
             raise e
 
     def select_loan_type(self, loan_type: str):
         try:
             if loan_type.upper() == "FIXED":
-                self.click_button(self.driver, self.timeout_m, self.btn_fixed)
+                self.click_button(self.driver, self.timeout_m, self.label_FHA)
             elif loan_type.upper() == "ADJUSTABLE":
-                self.click_button(self.driver, self.timeout_m, self.btn_adjust)
+                self.click_button(self.driver, self.timeout_m, self.label_VA)
             elif loan_type.upper() == "FIXED OR ADJUSTABLE":
-                self.click_button(self.driver, self.timeout_m, self.btn_fix_adjust)
+                self.click_button(self.driver, self.timeout_m, self.label_other_loan)
         except Exception as e:
             raise e
 
-    def answer_second_mort(self, second_mortgage: bool):
+    def select_lender(self, value):
         try:
-            self.answer_yes_no(self.driver, self.timeout_m, second_mortgage, self.btn_second_yes, self.btn_second_no)
-        except Exception as e:
-            raise e
-
-    def answer_bankruptcy(self, bankruptcy: bool):
-        try:
-            self.answer_yes_no(self.driver, self.timeout_m, bankruptcy, self.btn_bankruptcy_yes, self.btn_bankruptcy_no)
-        except Exception as e:
-            raise e
-
-    def select_late_payment(self, late_payment: str):
-        try:
-            if late_payment.upper() == "NONE":
-                self.click_button(self.driver, self.timeout_m, self.btn_late_none)
-            elif late_payment.upper() == "ONE":
-                self.click_button(self.driver, self.timeout_m, self.btn_late_one)
-            elif late_payment.upper() == "TWO OR MORE":
-                self.click_button(self.driver, self.timeout_m, self.btn_late_two_or_more)
-        except Exception as e:
-            raise e
-
-    def answer_verify_income(self, verify_income: bool):
-        try:
-            self.answer_yes_no(self.driver, self.timeout_m, verify_income, self.btn_verify_yes, self.btn_verify_no)
+            self.choose_dropdown_option(self.driver, self.timeout_m, self.dropdown_lender, value)
         except Exception as e:
             raise e
 
     def answer_military_spouse(self, military_spouse: bool):
         try:
-            self.answer_yes_no(self.driver, self.timeout_m, military_spouse, self.btn_military_yes,
-                               self.btn_military_no)
+            self.answer_yes_no(self.driver, self.timeout_m, military_spouse, self.label_yes_vet_house,
+                               self.label_no_vet_house)
         except Exception as e:
             raise e
 
-    def answer_home_improve(self, home_improve: bool):
-        try:
-            self.answer_yes_no(self.driver, self.timeout_m, home_improve, self.btn_improv_yes, self.btn_improv_no)
-        except Exception as e:
-            raise e
-
-    def enter_address(self, address: str, zipcode: str):
+    def enter_address(self, address: str):
         try:
             self.enter_text(self.driver, self.timeout_m, self.input_address, address)
-            self.enter_text(self.driver, self.timeout_m, self.input_zip, zipcode)
         except Exception as e:
             raise e
 
-    def enter_details(self, firstname: str, lastname: str, email: str, num_1: str, num_2: str, num_3: str):
+    def enter_details(self, firstname: str, lastname: str, email: str, phone: str):
         try:
-            self.enter_text(self.driver, self.timeout_m, self.input_first, firstname)
-            self.enter_text(self.driver, self.timeout_m, self.input_last, lastname)
+            self.enter_text(self.driver, self.timeout_m, self.input_first_name, firstname)
+            self.enter_text(self.driver, self.timeout_m, self.input_last_name, lastname)
             self.enter_text(self.driver, self.timeout_m, self.input_email, email)
-            self.enter_text(self.driver, self.timeout_m, self.input_primary_p1, num_1)
-            self.enter_text(self.driver, self.timeout_m, self.input_primary_p2, num_2)
-            self.enter_text(self.driver, self.timeout_m, self.input_primary_p3, num_3)
+            self.enter_text(self.driver, self.timeout_m, self.input_phone, phone)
         except Exception as e:
             raise e
 
     def adjust_prop_val_slider(self, value: int):
         try:
-            self.adjust_money_slider(value, self.slider_propt_val, self.label_propt_val, 8, '$50,001 - $55,000', "")
+            self.adjust_money_slider(
+                value, self.slider_prop_val, self.display_prop_val, 8, '$105,000 - $110,000', "Over $2,000,000")
         except Exception as e:
             raise e
 
     def adjust_mort_bal_slider(self, value: int):
         try:
-            self.adjust_money_slider(value, self.slider_mort_bal, self.label_mort_bal, 16, '$50,001 - $55,000', "")
+            self.adjust_money_slider(
+                value, self.slider_mort_bal, self.display_mort_bal, 8, '$85,000 - $90,000', "Over $2,000,000")
+        except Exception as e:
+            raise e
+
+    def answer_add_cash(self, add_cash: bool):
+        try:
+            self.answer_yes_no(self.driver, self.timeout_m, add_cash, self.btn_add_cash_yes, self.btn_add_cash_no)
+        except Exception as e:
+            raise e
+
+    # due to be decided
+    def select_future_plan(self, plan: str):
+        try:
+            if plan.upper() == "EXCELLENT":
+                self.click_button(self.driver, self.timeout_m, self.label_credit_excellent)
+            elif plan.upper() == "GOOD":
+                self.click_button(self.driver, self.timeout_m, self.label_credit_good)
+            elif plan.upper() == "AVERAGE":
+                self.click_button(self.driver, self.timeout_m, self.label_credit_average)
         except Exception as e:
             raise e
 
     def adjust_mort_intr_slider(self, value: int):
         try:
-            self.adjust_percentage_slider(value, self.slider_mort_intr, self.label_mort_intr, 15, "3% or lower",
-                                          "Over 10%")
-        except Exception as e:
-            raise e
-
-    def adjust_additional_cash_slider(self, value: int):
-        try:
-            self.adjust_money_slider(value, self.slider_add_cash, self.label_add_cash, 90, '$0',
-                                     '$45,001 - $50,000')
-        except Exception as e:
-            raise e
-
-    def adjust_scd_mort_bal(self, value: int):
-        try:
-            self.adjust_money_slider(value, self.slider_second_mort_bal, self.label_second_mort_bal, 90, 'Paid Off',
-                                     '$45,001 - $50,000')
-        except Exception as e:
-            raise e
-
-    def adjust_scd_mort_intr(self, value: int):
-        try:
-            self.adjust_percentage_slider(value, self.slider_second_int_bal, self.label_second_int_bal, 15,
-                                          "3% or lower", "Over 10%")
+            self.adjust_percentage_slider(value, self.slider_interest_rate, self.display_intr_rate, 15, "2.75%",
+                                          "8%")
         except Exception as e:
             raise e
 

@@ -122,7 +122,6 @@ class HomeEqInputModel:
                  mort_balance: str,
                  mort_intr_rate: str,
                  loan_type: str,
-                 second_mort: bool,
                  addtional_cash: str,
                  bankruptcy: str,
                  verify_income: str,
@@ -137,16 +136,26 @@ class HomeEqInputModel:
                  phone_area_code: str,
                  phone_prefix: str,
                  phone_line_num: str,
-                 scd_mort_bal: str = "",
-                 scd_mort_intr: str = ""
+                 use_money: str,
+                 rate_type: str,
+                 refinance_purpose: str,
+                 url: str,
+                 dob:str,
+                 state: str,
+                 city: str
                  ):
+        self.dob = dob
+        self.url = url
+        self.refinance_purpose = refinance_purpose
+        self.rate_type = rate_type
+        self.state = state
+        self.city = city
         self.house_type = house_type
         self.credit_score = credit_score
         self.property_value = property_value
         self.mort_balance = mort_balance
         self.mort_intr_rate = mort_intr_rate
         self.loan_type = loan_type
-        self.second_mort = second_mort
         self.addtional_cash = addtional_cash
         self.bankruptcy = bankruptcy
         self.verify_income = verify_income
@@ -161,5 +170,4 @@ class HomeEqInputModel:
         self.phone_area_code = phone_area_code
         self.phone_prefix = phone_prefix
         self.phone_line_num = phone_line_num
-        self.scd_mort_bal = scd_mort_bal
-        self.scd_mort_intr = scd_mort_intr
+        self.use_money = use_money
