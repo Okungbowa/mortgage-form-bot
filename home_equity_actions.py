@@ -1,4 +1,4 @@
-from home_equity_model import HomeEqXpathModel as HEQXpath, HomeEqInputModel as HEQInput
+from home_equity_model import HomeEqXpathModel as HEQXpath
 from base_actions import BaseActions
 
 

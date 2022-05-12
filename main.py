@@ -1,5 +1,5 @@
 from govhomeprogram_actions import GovhomeActions
-from home_equity_model import HomeEqXpathModel as HEQXpath, HomeEqInputModel as HEQInput
+from input_data_model import BotInputModel as InputModel
 from home_equity_actions import HomeEquityActions as HEQActions
 import time
 from selenium import webdriver
@@ -7,6 +7,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import zipfile
 from selenium.webdriver.chrome.options import Options
+
 
 
 def initialise_driver_proxy(city: str, state: str):
@@ -72,7 +73,7 @@ chrome.webRequest.onAuthRequired.addListener(
     return driver
 
 
-data = HEQInput(
+data = InputModel(
     house_type="single_family",
     credit_score="GOOD",
     property_value="200000",
