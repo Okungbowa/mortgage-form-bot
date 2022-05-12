@@ -1,3 +1,5 @@
+from selenium.webdriver.common.by import By
+import json
 from govhomeprogram_actions import GovhomeActions
 from home_equity_actions import HomeEquityActions as HEQActions
 import time
@@ -6,128 +8,36 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import zipfile
 from selenium.webdriver.chrome.options import Options
-from flask import jsonify
 import requests
-
-
-def setup_driver_proxy(city: str, state: str):
-    manifest_json = """
-{
-    "version": "1.0.0",
-    "manifest_version": 2,
-    "name": "Chrome Proxy",
-    "permissions": [
-        "proxy",
-        "tabs",
-        "unlimitedStorage",
-        "storage",
-        "<all_urls>",
-        "webRequest",
-        "webRequestBlocking"
-    ],
-    "background": {
-        "scripts": ["background.js"]
-    },
-    "minimum_chrome_version":"22.0.0"
-}
-"""
-    if city == "":
-        user = "lum-customer-c_dffa1e0f-zone-arlo1-country-us-state-" + state.lower()
-    else:
-        user = "lum-customer-c_dffa1e0f-zone-arlo1-country-us-state-" + state.lower() + "-city-" + city.lower()
-    background_js = """
-var config = {
-        mode: "fixed_servers",
-        rules: {
-          singleProxy: {
-            scheme: "http",
-            host: "zproxy.lum-superproxy.io",
-            port: parseInt(22225)
-          },
-          bypassList: ["foobar.com"]
-        }
-      };
-
-chrome.proxy.settings.set({value: config, scope: "regular"}, function() {});
-
-function callbackFn(details) {
-    return {
-        authCredentials: {
-            username: "%s",
-            password: "m0m1od8d15v3"
-        }
-    };
-}
-
-chrome.webRequest.onAuthRequired.addListener(
-            callbackFn,
-            {urls: ["<all_urls>"]},
-            ['blocking']
-);
-""" % (user)
-    pluginfile = 'proxy_auth_plugin.zip'
-    with zipfile.ZipFile(pluginfile, 'w') as zp:
-        zp.writestr("manifest.json", manifest_json)
-        zp.writestr("background.js", background_js)
-    co = Options()
-    co.add_argument("--start-maximized")
-    co.add_extension(pluginfile)
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), chrome_options=co)
-    driver.get('https://api.ipify.org?format=json')
-    json_ip = driver.page_source
-    return driver, json_ip
-
-
-# model = InputModel(
-#     house_type="single_family",
-#     credit_score="GOOD",
-#     property_value="200000",
-#     mort_balance="150000",
-#     mort_intr_rate="5",
-#     loan_type="fha",
-#     addtional_cash="12000",
-#     bankruptcy="no",
-#     late_payments="ONE",
-#     military_spouse="yes",
-#     home_improvements="yes",
-#     address="4024 Chardonnay Drive",
-#     zip_code="90210",
-#     first_name="John",
-#     last_name="Doe",
-#     email_address="john.doe@email.com",
-#     phone="6469603305",
-#     use_money="debt",
-#     dob="01/03/1985",
-#     url="https://tr4ckme.com/?a=41&c=9&s1=",
-#     refinance_purpose="cashout",
-#     rate_type="fixed",
-#     state="WY",
-#     city="Cheyenne",
-#     current_lender="Citi",
-#     employed="yes",
-# )
+from input_data_model import BotInputModel
 
 
 def main(data):
     # Initialise Home Equity Quiz Actions
 
     run = 1
+    include_city = True
     while run <= 50:
         try:
             run += 1
-            driver, json_ip = setup_driver_proxy(data.city, data.state)
-            ip = jsonify(json_ip)["ip"]
+            if include_city:
+                driver, json_ip = setup_driver_proxy(data.city, data.state)
+            else:
+                driver, json_ip = setup_driver_proxy("", data.state)
+            json_object = json.loads(json_ip)
+            ip = json_object['ip']
             if not ip.__contains__(data.last_ip):
                 break
             else:
                 driver.quit()
         except Exception as e:
-            driver, json_ip = setup_driver_proxy("", data.state)
+            include_city = False
+            driver.quit()
 
     if data.url == "https://tr4ckme.com/?a=41&c=9&s1=":
         # Launch Govhomeprog
-        action = GovhomeActions(driver, data)
-        govhomeprog_steps(action)
+        action = GovhomeActions(driver)
+        govhomeprog_steps(action, data)
     elif data.url == "http://tr4ckme.com/?a=41&c=60&s1=":
         action = HEQActions(driver)
         home_equity_quiz_steps(action, data)
@@ -305,6 +215,103 @@ def home_equity_quiz_steps(action, data):
     action.driver.quit()
 
 
+def setup_driver_proxy(city: str, state: str):
+    manifest_json = """
+{
+    "version": "1.0.0",
+    "manifest_version": 2,
+    "name": "Chrome Proxy",
+    "permissions": [
+        "proxy",
+        "tabs",
+        "unlimitedStorage",
+        "storage",
+        "<all_urls>",
+        "webRequest",
+        "webRequestBlocking"
+    ],
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "minimum_chrome_version":"22.0.0"
+}
+"""
+    if city == "":
+        user = "lum-customer-c_dffa1e0f-zone-arlo1-country-us-state-" + state.lower()
+    else:
+        user = "lum-customer-c_dffa1e0f-zone-arlo1-country-us-state-" + state.lower() + "-city-" + city.lower()
+    background_js = """
+var config = {
+        mode: "fixed_servers",
+        rules: {
+          singleProxy: {
+            scheme: "http",
+            host: "zproxy.lum-superproxy.io",
+            port: parseInt(22225)
+          },
+          bypassList: ["foobar.com"]
+        }
+      };
+
+chrome.proxy.settings.set({value: config, scope: "regular"}, function() {});
+
+function callbackFn(details) {
+    return {
+        authCredentials: {
+            username: "%s",
+            password: "m0m1od8d15v3"
+        }
+    };
+}
+
+chrome.webRequest.onAuthRequired.addListener(
+            callbackFn,
+            {urls: ["<all_urls>"]},
+            ['blocking']
+);
+""" % (user)
+    pluginfile = 'proxy_auth_plugin.zip'
+    with zipfile.ZipFile(pluginfile, 'w') as zp:
+        zp.writestr("manifest.json", manifest_json)
+        zp.writestr("background.js", background_js)
+    co = Options()
+    co.add_argument("--start-maximized")
+    co.add_extension(pluginfile)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), chrome_options=co)
+    driver.get('https://api.ipify.org?format=json')
+    json_ip = driver.find_element(By.XPATH,"//pre").text
+    return driver, json_ip
+
+
+test_model = BotInputModel(
+    house_type="single_family",
+    credit_score="GOOD",
+    property_value="200000",
+    mort_balance="150000",
+    mort_intr_rate="5",
+    loan_type="fha",
+    addtional_cash="12000",
+    bankruptcy="no",
+    military_spouse="yes",
+    home_improvements="yes",
+    address="4024 Chardonnay Drive",
+    zip_code="90210",
+    first_name="John",
+    last_name="Doe",
+    email_address="john.doe@email.com",
+    phone="6469603305",
+    use_money="debt",
+    dob="01/03/1985",
+    url="https://tr4ckme.com/?a=41&c=9&s1=",
+    refinance_purpose="cashout",
+    rate_type="fixed",
+    state="WY",
+    city="Cheyenne",
+    lender="Citi",
+    employed="yes",
+    last_ip="0.0.0.0"
+)
+
 if __name__ == '__main__':
-    main()
+    main(test_model)
     # runbot()

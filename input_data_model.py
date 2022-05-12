@@ -55,4 +55,5 @@ class BotInputModel:
         self.lender = lender
         self.employed = employed
         self.last_ip = last_ip
+        self.lender = lender
 
