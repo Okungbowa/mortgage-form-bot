@@ -1,7 +1,7 @@
 from flask import Flask, request
 import redis
 from rq import Queue
-from .myworkers import *
+from myworkers import *
 from input_data_model import BotInputModel
 
 app = Flask(__name__)
@@ -9,10 +9,13 @@ app = Flask(__name__)
 q = Queue(connection=redis.Redis(), default_timeout=3600)
 
 
+# Run redis server with command /usr/local/opt/redis/bin/redis-server
+
 @app.route('/refinance-bot', methods=["GET", "POST"])
 def fill_refinance_form():
-    data = extract_json_data(request.json)
-    job = q.enqueue(HomeEquityQuizForm, data)
+    json = request.json
+    data = extract_json_data(json)
+    job = q.enqueue(main, data)
     datas = {"status": "success", "queued_id": job.id, "queued_at": job.enqueued_at}
     return datas
 
@@ -47,7 +50,7 @@ def extract_json_data(json):
         rate_type=json['rate_type'],
         state=json['state'],
         city=json['city'],
-        current_lender=json['current_lender'],
+        lender=json['current_lender'],
         employed=json['employed'],
         last_ip=json['last_ip_used']
     )
@@ -55,4 +58,4 @@ def extract_json_data(json):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=80, threaded=True, debug=True)

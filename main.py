@@ -314,4 +314,3 @@ test_model = BotInputModel(
 
 if __name__ == '__main__':
     main(test_model)
-    # runbot()
