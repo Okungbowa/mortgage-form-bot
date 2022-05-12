@@ -11,10 +11,9 @@ class BaseActions:
         driver.get(url)
 
     @staticmethod
-    def wait(driver, timeout, xpath):
+    def wait_for_element(driver, timeout, xpath):
         element = Wait(driver, timeout).until(
-            Expectation.element_to_be_clickable((By.XPATH, xpath)))
-        return element
+            Expectation.invisibility_of_element((By.XPATH, xpath)))
 
     @staticmethod
     def click_button(driver, timeout, xpath):
@@ -61,9 +60,10 @@ class BaseActions:
         element.send_keys(text)
 
     @staticmethod
-    def choose_dropdown_option(self, driver, timeout, drop_xpath, value):
+    def choose_dropdown_option(driver, timeout, drop_xpath, value):
         try:
-            dropdown = self.wait(driver, timeout, drop_xpath)
+            dropdown = Wait(driver, timeout).until(
+                Expectation.element_to_be_clickable((By.XPATH, drop_xpath)))
             select = Select(dropdown)
 
             # select by visible text

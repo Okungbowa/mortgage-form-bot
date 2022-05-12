@@ -50,7 +50,7 @@ class GovHomeProgXpathModel:
     label_window = "//label[@id = 'RefiUsage_Window Service']"
     label_roofing = "//label[@id = 'RefiUsage_Roofing Service']"
     label_debt_cons = "//label[@id = 'RefiUsage_Debt Consolidation/Relief']"
-    label_house_regular = "//label[@id = 'RefiUsage_Other']"
+    label_other_use = "//label[@id = 'RefiUsage_Other']"
     label_pref_not_say = "//label[@id = 'RefiUsage_Prefer Not to Say']"
 
     # est_mort_bal
@@ -81,9 +81,11 @@ class GovHomeProgXpathModel:
     input_email = "//input[@name = 'email']"
     input_phone = "//input[@name = 'phone_primary']"
 
-    btn_submit = "//div[@id = 'submitButtonText'"
+    btn_submit = "//div[@id = 'submitButtonText']"
 
     dropdown_lender = "//select[@id = 'dropdown-current_lender']"
+
+    header_congrats = '//h1[contains(text(),"Congratulations! We\'ve Found A Match!")]'
 
 #
 #     # Home Type

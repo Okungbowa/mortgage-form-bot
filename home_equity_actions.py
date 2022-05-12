@@ -19,13 +19,11 @@ class HomeEquityActions(BaseActions, HEQXpath):
 
     def select_house_type(self, house_type: str):
         try:
-            if house_type.upper() == "SINGLE FAMILY":
+            if house_type.upper() == "SINGLE_FAMILY":
                 self.click_button(self.driver, self.timeout_m, self.btn_sgl_property)
-            elif house_type.upper() == "MULTI FAMILY":
+            elif house_type.upper() == "MULTI_FAMILY":
                 self.click_button(self.driver, self.timeout_m, self.btn_multi_property)
-            elif house_type.upper() == "TOWNHOUSE":
-                self.click_button(self.driver, self.timeout_m, self.btn_town_property)
-            elif house_type.upper() == "CONDOMINIUM":
+            elif house_type.upper() == "CONDO":
                 self.click_button(self.driver, self.timeout_m, self.btn_condo_property)
         except Exception as e:
             raise e
@@ -51,13 +49,13 @@ class HomeEquityActions(BaseActions, HEQXpath):
         except Exception as e:
             raise e
 
-    def select_loan_type(self, loan_type: str):
+    def select_rate_type(self, rate_type: str):
         try:
-            if loan_type.upper() == "FIXED":
+            if rate_type.upper() == "FIXED":
                 self.click_button(self.driver, self.timeout_m, self.btn_fixed)
-            elif loan_type.upper() == "ADJUSTABLE":
+            elif rate_type.upper() == "ADJUST":
                 self.click_button(self.driver, self.timeout_m, self.btn_adjust)
-            elif loan_type.upper() == "FIXED OR ADJUSTABLE":
+            elif rate_type.upper() == "FIXED_ADJUST":
                 self.click_button(self.driver, self.timeout_m, self.btn_fix_adjust)
         except Exception as e:
             raise e
@@ -148,17 +146,9 @@ class HomeEquityActions(BaseActions, HEQXpath):
         except Exception as e:
             raise e
 
-    def adjust_scd_mort_bal(self, value: int):
+    def wait_for_last_screen(self):
         try:
-            self.adjust_money_slider(value, self.slider_second_mort_bal, self.label_second_mort_bal, 90, 'Paid Off',
-                                     '$45,001 - $50,000')
-        except Exception as e:
-            raise e
-
-    def adjust_scd_mort_intr(self, value: int):
-        try:
-            self.adjust_percentage_slider(value, self.slider_second_int_bal, self.label_second_int_bal, 15,
-                                          "3% or lower", "Over 10%")
+            self.wait_for_element(self.driver, self.timeout_xl, self.input_first)
         except Exception as e:
             raise e
 

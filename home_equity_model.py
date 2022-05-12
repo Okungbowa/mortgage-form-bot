@@ -113,6 +113,9 @@ class HomeEqXpathModel:
     # Continue Button
     btn_continue = "//button[@id='continue_button']"
 
+    #Last screen
+    div_rows = "//div[@id = 'max-rows']"
+
 
 class HomeEqInputModel:
     def __init__(self,
@@ -124,7 +127,6 @@ class HomeEqInputModel:
                  loan_type: str,
                  addtional_cash: str,
                  bankruptcy: str,
-                 verify_income: str,
                  late_payments: str,
                  military_spouse: str,
                  home_improvements: bool,
@@ -133,16 +135,16 @@ class HomeEqInputModel:
                  first_name: str,
                  last_name: str,
                  email_address: str,
-                 phone_area_code: str,
-                 phone_prefix: str,
-                 phone_line_num: str,
+                 phone: str,
                  use_money: str,
                  rate_type: str,
                  refinance_purpose: str,
                  url: str,
                  dob:str,
                  state: str,
-                 city: str
+                 city: str,
+                 lender: str,
+                 employed: str
                  ):
         self.dob = dob
         self.url = url
@@ -158,7 +160,6 @@ class HomeEqInputModel:
         self.loan_type = loan_type
         self.addtional_cash = addtional_cash
         self.bankruptcy = bankruptcy
-        self.verify_income = verify_income
         self.late_payments = late_payments
         self.military_spouse = military_spouse
         self.home_improvements = home_improvements
@@ -167,7 +168,7 @@ class HomeEqInputModel:
         self.first_name = first_name
         self.last_name = last_name
         self.email_address = email_address
-        self.phone_area_code = phone_area_code
-        self.phone_prefix = phone_prefix
-        self.phone_line_num = phone_line_num
+        self.phone = phone
         self.use_money = use_money
+        self.lender = lender
+        self.employed = employed

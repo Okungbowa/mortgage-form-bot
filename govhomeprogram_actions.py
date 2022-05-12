@@ -84,11 +84,11 @@ class GovhomeActions(BaseActions, GovXpath):
 
     def select_loan_type(self, loan_type: str):
         try:
-            if loan_type.upper() == "FIXED":
+            if loan_type.upper() == "FHA":
                 self.click_button(self.driver, self.timeout_m, self.label_FHA)
-            elif loan_type.upper() == "ADJUSTABLE":
+            elif loan_type.upper() == "VA":
                 self.click_button(self.driver, self.timeout_m, self.label_VA)
-            elif loan_type.upper() == "FIXED OR ADJUSTABLE":
+            elif loan_type.upper() == "OTHER":
                 self.click_button(self.driver, self.timeout_m, self.label_other_loan)
         except Exception as e:
             raise e
@@ -96,6 +96,12 @@ class GovhomeActions(BaseActions, GovXpath):
     def select_lender(self, value):
         try:
             self.choose_dropdown_option(self.driver, self.timeout_m, self.dropdown_lender, value)
+        except Exception as e:
+            raise e
+
+    def wait_for_last_screen(self):
+        try:
+            self.wait_for_element(self.driver,self.timeout_xl, self.btn_submit)
         except Exception as e:
             raise e
 
@@ -144,12 +150,12 @@ class GovhomeActions(BaseActions, GovXpath):
     # due to be decided
     def select_future_plan(self, plan: str):
         try:
-            if plan.upper() == "EXCELLENT":
-                self.click_button(self.driver, self.timeout_m, self.label_credit_excellent)
-            elif plan.upper() == "GOOD":
-                self.click_button(self.driver, self.timeout_m, self.label_credit_good)
-            elif plan.upper() == "AVERAGE":
-                self.click_button(self.driver, self.timeout_m, self.label_credit_average)
+            if plan.upper() == "OTHER":
+                self.click_button(self.driver, self.timeout_m, self.label_other_use)
+            elif plan.upper() == "NOT_SAY":
+                self.click_button(self.driver, self.timeout_m, self.label_pref_not_say)
+            elif plan.upper() == "DEBT":
+                self.click_button(self.driver, self.timeout_m, self.label_debt_cons)
         except Exception as e:
             raise e
 
