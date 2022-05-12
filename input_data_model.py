@@ -10,7 +10,6 @@ class BotInputModel:
                  loan_type: str,
                  addtional_cash: str,
                  bankruptcy: str,
-                 late_payments: str,
                  military_spouse: str,
                  home_improvements: bool,
                  address: str,
@@ -43,7 +42,6 @@ class BotInputModel:
         self.loan_type = loan_type
         self.addtional_cash = addtional_cash
         self.bankruptcy = bankruptcy
-        self.late_payments = late_payments
         self.military_spouse = military_spouse
         self.home_improvements = home_improvements
         self.address = address

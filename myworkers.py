@@ -1,12 +1,13 @@
 import sys
+
 sys.path.insert(0, '<PATH_TO_PROJECT>')
 from selenium import webdriver
-from home_equity_model import HomeEqXpathModel as HEQXpath, HomeEqInputModel as HEQInput
 from home_equity_actions import HomeEquityActions as HEQActions
 import time
 
 # initialise the driver
 driver = webdriver.Chrome('/Users/joshuaokungbowa/Downloads/chromedriver')
+
 
 def HomeEquityQuizForm(data):
     # Initialise Home Equity Quiz Actions
@@ -51,12 +52,12 @@ def HomeEquityQuizForm(data):
     action.answer_second_mort(data.second_mort)
 
     # if data.second_mort:
-        # slider selection
-        # action.adjust_scd_mort_bal(data.scd_mort_bal)
-        # time.sleep(2)
-        # action.adjust_scd_mort_intr(data.scd_mort_intr)
-        # action.click_continue()
-        # time.sleep(2)
+    # slider selection
+    # action.adjust_scd_mort_bal(data.scd_mort_bal)
+    # time.sleep(2)
+    # action.adjust_scd_mort_intr(data.scd_mort_intr)
+    # action.click_continue()
+    # time.sleep(2)
 
     # slider selection - REVISIT
     action.adjust_additional_cash_slider(data.addtional_cash)

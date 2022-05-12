@@ -9,7 +9,6 @@ import zipfile
 from selenium.webdriver.chrome.options import Options
 
 
-
 def initialise_driver_proxy(city: str, state: str):
     manifest_json = """
 {
@@ -73,50 +72,50 @@ chrome.webRequest.onAuthRequired.addListener(
     return driver
 
 
-data = InputModel(
-    house_type="single_family",
-    credit_score="GOOD",
-    property_value="200000",
-    mort_balance="150000",
-    mort_intr_rate="5",
-    loan_type="fha",
-    addtional_cash="12000",
-    bankruptcy="no",
-    late_payments="ONE",
-    military_spouse="yes",
-    home_improvements="yes",
-    address="4024 Chardonnay Drive",
-    zip_code="90210",
-    first_name="John",
-    last_name="Doe",
-    email_address="john.doe@email.com",
-    phone="6469603305",
-    use_money="debt",
-    dob="01/03/1985",
-    url="https://tr4ckme.com/?a=41&c=9&s1=",
-    refinance_purpose="cashout",
-    rate_type="fixed",
-    state="WY",
-    city="Cheyenne",
-    lender="Citi",
-    employed="yes",
-)
+# model = InputModel(
+#     house_type="single_family",
+#     credit_score="GOOD",
+#     property_value="200000",
+#     mort_balance="150000",
+#     mort_intr_rate="5",
+#     loan_type="fha",
+#     addtional_cash="12000",
+#     bankruptcy="no",
+#     late_payments="ONE",
+#     military_spouse="yes",
+#     home_improvements="yes",
+#     address="4024 Chardonnay Drive",
+#     zip_code="90210",
+#     first_name="John",
+#     last_name="Doe",
+#     email_address="john.doe@email.com",
+#     phone="6469603305",
+#     use_money="debt",
+#     dob="01/03/1985",
+#     url="https://tr4ckme.com/?a=41&c=9&s1=",
+#     refinance_purpose="cashout",
+#     rate_type="fixed",
+#     state="WY",
+#     city="Cheyenne",
+#     current_lender="Citi",
+#     employed="yes",
+# )
 
 
-def main():
+def main(data):
     # Initialise Home Equity Quiz Actions
-    driver = initialise_driver_proxy(data.city, data.state)
+    driver = initialise_driver_proxy(model.city, model.state)
 
-    if data.url == "https://tr4ckme.com/?a=41&c=9&s1=":
+    if model.url == "https://tr4ckme.com/?a=41&c=9&s1=":
         # Launch Govhomeprog
-        action = GovhomeActions(driver)
+        action = GovhomeActions(driver, model)
         govhomeprog_steps(action)
-    elif data.url == "http://tr4ckme.com/?a=41&c=60&s1=":
+    elif model.url == "http://tr4ckme.com/?a=41&c=60&s1=":
         action = HEQActions(driver)
-        home_equity_quiz_steps(action)
+        home_equity_quiz_steps(action, model)
 
 
-def govhomeprog_steps(action):
+def govhomeprog_steps(action, data):
     action.launch(action.driver, "https://tr4ckme.com/?a=41&c=9&s1=")
     time.sleep(5)
 
@@ -195,7 +194,7 @@ def govhomeprog_steps(action):
     action.driver.quit()
 
 
-def home_equity_quiz_steps(action):
+def home_equity_quiz_steps(action, data):
     action.launch(action.driver, "http://tr4ckme.com/?a=41&c=60&s1=")
     time.sleep(5)
 
