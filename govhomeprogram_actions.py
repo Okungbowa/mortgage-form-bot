@@ -94,10 +94,19 @@ class GovhomeActions(BaseActions, GovXpath):
             raise e
 
     def select_lender(self, value):
+        no_option = False
         try:
             self.choose_dropdown_option(self.driver, self.timeout_m, self.dropdown_lender, value)
         except Exception as e:
-            raise e
+            no_option = True
+        finally:
+            if no_option:
+                try:
+                    self.choose_dropdown_option(self.driver, self.timeout_m, self.dropdown_lender, "Other")
+                except Exception as e:
+                    raise e
+
+
 
     def wait_for_last_screen(self):
         try:
