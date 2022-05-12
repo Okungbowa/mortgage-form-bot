@@ -26,7 +26,8 @@ class BotInputModel:
                  state: str,
                  city: str,
                  lender: str,
-                 employed: str
+                 employed: str,
+                 last_ip:str
                  ):
         self.dob = dob
         self.url = url
@@ -53,4 +54,5 @@ class BotInputModel:
         self.use_money = use_money
         self.lender = lender
         self.employed = employed
+        self.last_ip = last_ip
 

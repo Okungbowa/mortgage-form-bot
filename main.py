@@ -1,5 +1,4 @@
 from govhomeprogram_actions import GovhomeActions
-from input_data_model import BotInputModel as InputModel
 from home_equity_actions import HomeEquityActions as HEQActions
 import time
 from selenium import webdriver
@@ -7,9 +6,11 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import zipfile
 from selenium.webdriver.chrome.options import Options
+from flask import jsonify
+import requests
 
 
-def initialise_driver_proxy(city: str, state: str):
+def setup_driver_proxy(city: str, state: str):
     manifest_json = """
 {
     "version": "1.0.0",
@@ -30,7 +31,10 @@ def initialise_driver_proxy(city: str, state: str):
     "minimum_chrome_version":"22.0.0"
 }
 """
-    user = "lum-customer-c_dffa1e0f-zone-arlo1-country-us-state-" + state.lower() + "-city-" + city.lower()
+    if city == "":
+        user = "lum-customer-c_dffa1e0f-zone-arlo1-country-us-state-" + state.lower()
+    else:
+        user = "lum-customer-c_dffa1e0f-zone-arlo1-country-us-state-" + state.lower() + "-city-" + city.lower()
     background_js = """
 var config = {
         mode: "fixed_servers",
@@ -69,7 +73,9 @@ chrome.webRequest.onAuthRequired.addListener(
     co.add_argument("--start-maximized")
     co.add_extension(pluginfile)
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), chrome_options=co)
-    return driver
+    driver.get('https://api.ipify.org?format=json')
+    json_ip = driver.page_source
+    return driver, json_ip
 
 
 # model = InputModel(
@@ -104,15 +110,31 @@ chrome.webRequest.onAuthRequired.addListener(
 
 def main(data):
     # Initialise Home Equity Quiz Actions
-    driver = initialise_driver_proxy(model.city, model.state)
 
-    if model.url == "https://tr4ckme.com/?a=41&c=9&s1=":
+    run = 1
+    while run <= 50:
+        try:
+            run += 1
+            driver, json_ip = setup_driver_proxy(data.city, data.state)
+            ip = jsonify(json_ip)["ip"]
+            if not ip.__contains__(data.last_ip):
+                break
+            else:
+                driver.quit()
+        except Exception as e:
+            driver, json_ip = setup_driver_proxy("", data.state)
+
+    if data.url == "https://tr4ckme.com/?a=41&c=9&s1=":
         # Launch Govhomeprog
-        action = GovhomeActions(driver, model)
+        action = GovhomeActions(driver, data)
         govhomeprog_steps(action)
-    elif model.url == "http://tr4ckme.com/?a=41&c=60&s1=":
+    elif data.url == "http://tr4ckme.com/?a=41&c=60&s1=":
         action = HEQActions(driver)
-        home_equity_quiz_steps(action, model)
+        home_equity_quiz_steps(action, data)
+
+    r = requests.post("https://arlo.tycoonmach.net/api/logip", data={'url': data.url, 'ip': ip})
+    if not r.status_code == 200:
+        raise Exception()
 
 
 def govhomeprog_steps(action, data):

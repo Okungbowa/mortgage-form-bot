@@ -42,14 +42,14 @@ def extract_json_data(json):
         phone=json['phone'],
         use_money=json['use_money'],
         dob=json['dob'],
-        # url="https://tr4ckme.com/?a=41&c=9&s1=",
         url=json['url'],
         refinance_purpose=json['refinance_purpose'],
         rate_type=json['rate_type'],
         state=json['state'],
         city=json['city'],
         current_lender=json['current_lender'],
-        employed=json['employed']
+        employed=json['employed'],
+        last_ip=json['last_ip_used']
     )
     return model
 
