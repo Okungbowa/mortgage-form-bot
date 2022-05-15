@@ -88,7 +88,7 @@ class GovhomeActions(BaseActions, GovXpath):
                 self.click_button(self.driver, self.timeout_m, self.label_FHA)
             elif loan_type.upper() == "VA":
                 self.click_button(self.driver, self.timeout_m, self.label_VA)
-            elif loan_type.upper() == "OTHER":
+            else:
                 self.click_button(self.driver, self.timeout_m, self.label_other_loan)
         except Exception as e:
             raise e
